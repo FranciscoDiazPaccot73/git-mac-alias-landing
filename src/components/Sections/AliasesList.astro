@@ -1,0 +1,248 @@
+---
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeaderWithIcon from "../Card/CardHeaderWithIcon.astro";
+import ChevronRight from "../icons/ChevronRight.astro";
+import Terminal from "../icons/Terminal.astro";
+import CopyButton from "../CopyButton.astro";
+import Section from "../../layouts/Section.astro";
+
+const aliasCategories = [
+  {
+    name: "General",
+    aliases: [
+      {
+        name: "ll",
+        command: "alias ll='ls -l'",
+        description: "List all files in long format without hidden files",
+      },
+      {
+        name: "llh",
+        command: "alias llh='ls -lah'",
+        description: "List all files in long format with hidden files",
+      },
+      {
+        name: "..",
+        command: "alias ..='cd ..'",
+        description: "Navigate up one directory",
+      },
+      {
+        name: "...",
+        command: "alias ...='cd ../..'",
+        description: "Navigate up two directories",
+      },
+      {
+        name: "port",
+        command: "alias port='bash ~/my_scripts/check-port.sh'",
+        description: "Check what is running on a port",
+      },
+    ],
+  },
+  {
+    name: "Git",
+    aliases: [
+      {
+        name: "status",
+        command: "alias status='git status'",
+        description: "Show the working tree status",
+      },
+      {
+        name: "add",
+        command: "alias add='git add .'",
+        description: "Add all changes",
+      },
+      {
+        name: "commit",
+        command: "alias commit='git commit -m'",
+        description: "Commit with a message",
+      },
+      {
+        name: "new-branch",
+        command: "alias new-branch='git checkout -b'",
+        description: "Create a new local branch",
+      },
+      {
+        name: "commitall",
+        command: "alias commitall='git add . && commit'",
+        description: "Add all changes and commit with a message",
+      },
+      {
+        name: "commitm",
+        command:
+          "alias commitm='bash ~/my_scripts/commit-multiple-messages.sh'",
+        description: "Commit with multiple messages",
+      },
+      {
+        name: "push",
+        command: "alias push='bash ~/my_scripts/push-current-git-branch.sh'",
+        description: "Push changes to the remote repository",
+      },
+      {
+        name: "pull",
+        command: "alias pull='bash ~/my_scripts/pull-current-git-branch.sh'",
+        description:
+          "Pull changes from current remote branch or from specific branch",
+      },
+      {
+        name: "pullm",
+        command: "alias pullm='bash ~/my_scripts/pull-from-main.sh'",
+        description: "Pull changes from main or master branch",
+      },
+      {
+        name: "revert-file",
+        command: "alias revert-file='bash ~/my_scripts/revert-file.sh'",
+        description: "Revert file from a remote branch",
+      },
+    ],
+  },
+  {
+    name: "Networking",
+    aliases: [
+      {
+        name: "myip",
+        command: "alias myip='curl ifconfig.me'",
+        description: "Get your public IP address",
+      },
+      {
+        name: "flushdns",
+        command:
+          "alias flushdns='dscacheutil -flushcache && sudo killall -HUP mDNSResponder'",
+        description: "Flush DNS cache",
+      },
+    ],
+  },
+  {
+    name: "System Operations",
+    aliases: [
+      {
+        name: "update",
+        command:
+          "alias update='sudo softwareupdate -i -a; brew update; brew upgrade'",
+        description: "Update macOS and Homebrew packages",
+      },
+      {
+        name: "df",
+        command: "alias df='df -h'",
+        description: "Show disk usage in human-readable format",
+      },
+      {
+        name: "du",
+        command: "alias du='du -sh *'",
+        description:
+          "Show the size of directories and files in human-readable format",
+      },
+    ],
+  },
+];
+
+// const [activeCategory, setActiveCategory] = useState(aliasCategories[0].name)
+// onClick={() => setActiveCategory(category.name)}
+
+// activeCategory === category.name
+//   ? "bg-gray-800 text-primary"
+//   : "text-gray-400 hover:bg-gray-800"
+
+// activeCategory === category.name ? "rotate-90" : ""
+
+// onClick={() => navigator.clipboard.writeText(alias.command)}
+// ${index === 0 ? activeButtonClasses : buttonClasses}
+
+const buttonClasses = "text-gray-400 hover:bg-gray-800";
+---
+
+<Section id="aliases-list">
+  <Card
+    className="bg-gray-900 border-gray-700 overflow-hidden"
+    id="aliases-list"
+  >
+    <CardHeaderWithIcon
+      className="bg-gray-800 p-4 text-primary flex items-center gap-2 border-b border-gray-700"
+      title="Aliases List"
+    >
+      <Terminal height="24" width="24" />
+    </CardHeaderWithIcon>
+    <CardContent>
+      <div class="flex">
+        <div class="w-1/4 border-r border-gray-700">
+          {
+            aliasCategories.map((category, index) => (
+              <button
+                class={`w-full text-left p-4 flex items-center justify-between ${buttonClasses} data-[state=active]:bg-gray-800 data-[state=active]:text-primary`}
+                data-state={index === 0 ? "active" : ""}
+                id="category-button"
+              >
+                {category.name}
+                <ChevronRight
+                  classes={`h-4 w-4 transform transition-transform ${index === 0 ? "rotate-90" : ""}`}
+                />
+              </button>
+            ))
+          }
+        </div>
+        <div class="w-3/4 p-4">
+          {
+            aliasCategories?.map(({ aliases }, index) => (
+              <article
+                id={`alias-${index}`}
+                data-state={index === 0 ? "active" : ""}
+                class="hidden data-[state=active]:block alias-list"
+              >
+                {aliases?.map((alias, i) => (
+                  <div class="mb-4 last:mb-0">
+                    <h4 class="text-primary font-mono text-sm mb-2">
+                      {alias.name}
+                    </h4>
+                    <div class="bg-black rounded-md p-4 relative">
+                      <pre class="text-green-400 font-mono text-sm flex items-center justify-center overflow-x-auto">
+                        <code>{alias.command}</code>
+                      </pre>
+                      <CopyButton
+                        content={alias.command}
+                        classes="absolute top-2 right-2"
+                      />
+                    </div>
+                    <p class="text-gray-400 text-sm mt-2">
+                      {alias.description}
+                    </p>
+                  </div>
+                ))}
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+</Section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let selectedIndex = 0;
+
+    document.querySelectorAll("#category-button").forEach((button, index) => {
+      button.addEventListener("click", async () => {
+        selectedIndex = index;
+        const alias = document.querySelector(`#alias-${index}`) || {
+          dataset: {},
+        };
+
+        alias.dataset.state = "active";
+        button.dataset.state = "active";
+        button.querySelector("svg")?.classList.add("rotate-90");
+
+        document.querySelectorAll("#category-button").forEach((btn, i) => {
+          if (i !== index) {
+            btn.dataset.state = "";
+            btn.querySelector("svg")?.classList.remove("rotate-90");
+          }
+        });
+
+        document.querySelectorAll(".alias-list").forEach((a, i) => {
+          if (i !== index) {
+            a.dataset.state = "";
+          }
+        });
+      });
+    });
+  });
+</script>

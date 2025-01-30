@@ -1,0 +1,43 @@
+---
+import Section from "../../layouts/Section.astro";
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeader from "../Card/CardHeader.astro";
+---
+
+<Section id="table-of-contents">
+  <Card class="bg-gray-800 border-gray-700">
+    <CardHeader className="border-b border-gray-700">
+      Table of Contents
+    </CardHeader>
+    <CardContent className="p-6">
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <a href="#getting-started" class="text-primary hover:underline">
+            Getting Started
+          </a>
+        </li>
+        <li>
+          <a href="#installation" class="text-primary hover:underline">
+            Installation
+          </a>
+        </li>
+        <li>
+          <a href="#aliases-list" class="text-primary hover:underline">
+            Aliases List
+          </a>
+        </li>
+        <li>
+          <a href="#contributing" class="text-primary hover:underline">
+            Contributing
+          </a>
+        </li>
+        <li>
+          <a href="#changelog" class="text-primary hover:underline">
+            Changelog
+          </a>
+        </li>
+      </ul>
+    </CardContent>
+  </Card>
+</Section>

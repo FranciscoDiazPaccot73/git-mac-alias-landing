@@ -1,0 +1,42 @@
+---
+import AliasesList from "../components/Sections/AliasesList.astro";
+import GettingStarted from "../components/Sections/GettingStarted.astro";
+import Header from "../components/Header.astro";
+import Installation from "../components/Sections/Installation.astro";
+import TableOfContents from "../components/Sections/TableOfContents.astro";
+import Layout from "../layouts/Layout.astro";
+import Contributing from "../components/Sections/Contributing.astro";
+import Changelog from "../components/Sections/Changelog.astro";
+import Footer from "../components/Footer.astro";
+import GithubLink from "../components/GithubLink.astro";
+---
+
+<Layout>
+  <div class="min-h-screen bg-gray-900 text-white flex flex-col">
+    <Header />
+    <main class="flex-grow container mx-auto px-4 py-8 relative">
+      <div
+        class="absolute inset-0 bg-[url('/circuit-board.svg')] opacity-5 pointer-events-none"
+      >
+      </div>
+      <div class="relative z-10">
+        <h1 class="text-5xl font-bold mb-8 text-center text-primary glow">
+          Mac Bash Aliases
+        </h1>
+        <p class="text-center mb-12 text-xl text-gray-300 max-w-2xl mx-auto">
+          Streamline your macOS workflow with our curated collection of Bash
+          aliases. Save time and boost productivity with these powerful
+          command-line shortcuts.
+        </p>
+        <GithubLink />
+        <TableOfContents />
+        <GettingStarted />
+        <Installation />
+        <AliasesList />
+        <Contributing />
+        <Changelog />
+      </div>
+    </main>
+    <Footer />
+  </div>
+</Layout>

@@ -1,0 +1,164 @@
+---
+import Section from "../../layouts/Section.astro";
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeaderWithIcon from "../Card/CardHeaderWithIcon.astro";
+import CopyButton from "../CopyButton.astro";
+import Terminal from "../icons/Terminal.astro";
+
+const steps = [
+  {
+    title: "Backup your existing configuration file:",
+    commands: [
+      {
+        command: "cp ~/.bash_profile ~/.bash_profile_backup",
+        description: "# or",
+      },
+      {
+        command: "cp ~/.bashrc ~/.bashrc_backup",
+        description: "# or",
+      },
+      {
+        command: "cp ~/.zshrc ~/.zshrc_backup",
+      },
+    ],
+  },
+  {
+    title: "Create my_scripts folder and copy scripts:",
+    commands: [
+      {
+        title: "# Manually:",
+        command: "cd ~ && mkdir my_scripts",
+        description: "# Then copy the content of /scripts folder inside",
+      },
+    ],
+    alternative: {
+      title: "# Automatically:\n# Use one of the provided scripts:",
+      commands: [
+        {
+          command: "python installation.py",
+          description: "# or",
+        },
+        {
+          command: "node installation.js",
+        },
+      ],
+    },
+  },
+  {
+    title: "Append aliases to your configuration file:",
+    commands: [
+      {
+        command: "nano ~/.bash_profile",
+        description: "# or",
+      },
+      {
+        command: "nano ~/.bashrc",
+        description: "# or\n",
+      },
+      {
+        command: "nano ~/.zshrc",
+      },
+    ],
+    alternative: {
+      title: "# Alternatively:",
+      commands: [
+        {
+          command: "open -e ~/.bash_profile",
+          description: "# or",
+        },
+        {
+          command: "open -e ~/.bashrc",
+          description: "# or",
+        },
+        {
+          command: "open -e ~/.zshrc",
+        },
+      ],
+    },
+  },
+  {
+    title: "Reload your Bash configuration:",
+    commands: [
+      {
+        command: "source ~/.bash_profile",
+        description: "# or",
+      },
+      {
+        command: "source ~/.bashrc",
+        description: "# or",
+      },
+      {
+        command: "source ~/.zshrc",
+      },
+    ],
+  },
+];
+---
+
+<Section id="installation">
+  <Card
+    className="bg-gray-900 border-gray-700 overflow-hidden p-0"
+    id="installation"
+  >
+    <CardHeaderWithIcon
+      className="bg-gray-800 border-b border-gray-700 text-primary flex items-center gap-2 p-4"
+      title="Installation"
+    >
+      <Terminal height="24" width="24" />
+    </CardHeaderWithIcon>
+    <CardContent>
+      <ol class="list-none m-0">
+        {
+          steps.map((step, index) => (
+            <li class="border-b border-gray-700 last:border-b-0">
+              <div class="p-4">
+                <p class="font-mono text-sm text-primary mb-2">
+                  Step {index + 1}: {step.title}
+                </p>
+                <div class="bg-black rounded-md p-4">
+                  <pre class="text-green-400 font-mono flex flex-col justify-center text-sm overflow-x-auto">
+                    {step.commands.map((c) => (
+                      <div class="flex flex-col justify-start">
+                        {c.title ? (
+                          <p class="text-gray-400">{c.title}</p>
+                        ) : null}
+                        <div class="flex gap-2 items-center">
+                          <code>{c.command}</code>
+                          <CopyButton content={c.command} />
+                        </div>
+                        {c.description ? (
+                          <p class="text-gray-400">{c.description}</p>
+                        ) : null}
+                      </div>
+                    ))}
+                  </pre>
+                </div>
+                {step.alternative ? (
+                  <div class="bg-black rounded-md p-4 mt-8">
+                    <pre class="text-green-400 font-mono flex flex-col justify-center text-sm overflow-x-auto">
+                      <div class="flex flex-col justify-start">
+                        <p class="text-gray-400">{step.alternative.title}</p>
+                        {step.alternative.commands.map((c) => (
+                          <div class="flex flex-col justify-start">
+                            <div class="flex gap-2 items-center">
+                              <code>{c.command}</code>
+                              <CopyButton content={c.command} />
+                            </div>
+                            {c.description ? (
+                              <p class="text-gray-400">{c.description}</p>
+                            ) : null}
+                          </div>
+                        ))}
+                      </div>
+                    </pre>
+                  </div>
+                ) : null}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </CardContent>
+  </Card>
+</Section>

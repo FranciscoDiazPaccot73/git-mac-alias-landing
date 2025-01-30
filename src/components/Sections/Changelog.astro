@@ -1,0 +1,48 @@
+---
+import Section from "../../layouts/Section.astro";
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeaderWithIcon from "../Card/CardHeaderWithIcon.astro";
+import Terminal from "../icons/Terminal.astro";
+---
+
+<Section id="changelog">
+  <Card className="bg-gray-900 border-gray-700 overflow-hidden">
+    <CardHeaderWithIcon
+      className="bg-gray-800 border-b border-gray-700 text-primary flex items-center gap-2 p-4"
+      title="Changelog"
+    >
+      <Terminal height="24" width="24" />
+    </CardHeaderWithIcon>
+    <CardContent className="p-6">
+      <div class="prose prose-invert max-w-none">
+        <h2 class="text-2xl font-bold text-primary mb-4">Changelog</h2>
+        <p class="mb-4">
+          All notable changes to this project will be documented in this file.
+          <br />
+          The format is based on{" "}
+          <a
+            href="https://keepachangelog.com/"
+            class="text-primary hover:underline"
+          >
+            Keep a Changelog
+          </a>
+          ,<br />
+          and this project adheres to{" "}
+          <a href="https://semver.org/" class="text-primary hover:underline">
+            Semantic Versioning
+          </a>
+          .
+        </p>
+        <hr class="border-gray-700 my-6" />
+        <h3 class="text-xl font-bold text-primary mb-2">
+          [Version 0.1.1] - 2025-01-28
+        </h3>
+        <h4 class="text-lg font-semibold text-gray-300 mb-2">Added</h4>
+        <ul class="list-disc pl-5 text-gray-300">
+          <li>Added new script to initialize Express server.</li>
+        </ul>
+      </div>
+    </CardContent>
+  </Card>
+</Section>

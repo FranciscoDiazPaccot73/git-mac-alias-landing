@@ -1,0 +1,40 @@
+---
+import Section from "../../layouts/Section.astro";
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeader from "../Card/CardHeader.astro";
+---
+
+<Section id="contributing">
+  <Card className="bg-gray-800 border-gray-700" id="contributing">
+    <CardHeader className="border-b border-gray-700">Contributing</CardHeader>
+    <CardContent className="p-6">
+      <p class="text-gray-300 mb-4">
+        Contributions are welcome! If you have a useful alias or improvement,
+        please follow these steps:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2 text-gray-300">
+        <li>Fork the repository.</li>
+        <li>
+          Create a new branch:{" "}
+          <code class="bg-gray-700 px-1 rounded text-primary"
+            >git checkout -b feature/your-feature</code
+          >
+        </li>
+        <li>
+          Commit your changes:{" "}
+          <code class="bg-gray-700 px-1 rounded text-primary"
+            >git commit -am 'Add your feature'</code
+          >
+        </li>
+        <li>
+          Push to the branch:{" "}
+          <code class="bg-gray-700 px-1 rounded text-primary"
+            >git push origin feature/your-feature</code
+          >
+        </li>
+        <li>Create a pull request.</li>
+      </ol>
+    </CardContent>
+  </Card>
+</Section>

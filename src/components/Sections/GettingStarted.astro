@@ -1,0 +1,21 @@
+---
+import Section from "../../layouts/Section.astro";
+import Card from "../Card/Card.astro";
+import CardContent from "../Card/CardContent.astro";
+import CardHeader from "../Card/CardHeader.astro";
+---
+
+<Section id="getting-started">
+  <Card class="bg-gray-800 border-gray-700" id="getting-started">
+    <CardHeader className="border-b border-gray-700">
+      Getting Started
+    </CardHeader>
+    <CardContent className="p-3">
+      <p class="text-gray-300">
+        Bash aliases are shortcuts that help you execute commands more
+        efficiently. By defining aliases in your terminal configuration file,
+        you can save time and keystrokes.
+      </p>
+    </CardContent>
+  </Card>
+</Section>
